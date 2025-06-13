@@ -1,0 +1,22 @@
+baseURL = "https://masa162.github.io/urban-umbrella/"
+languageCode = "ja"
+title = "recroom"
+theme = "PaperMod"
+
+[params]
+  ShowReadingTime = false
+  ShowShareButtons = false
+  ShowPostNavLinks = false
+  ShowBreadCrumbs = false
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = false
+  ShowToc = false
+  profileMode = { enabled = false }
+  mainSections = ["posts"]
+
+[permalinks]
+  posts = "/posts/:slug/"
+
+[frontmatter]
+  slug = "filename"
