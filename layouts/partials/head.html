@@ -74,6 +74,11 @@
 <link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" rel="preload stylesheet" as="style">
 {{- end }}
 
+{{- /* Custom override CSS for nav/header */}}
+{{- $navStyle := resources.Get "css/override/nav.css" | resources.Minify }}
+<link rel="stylesheet" href="{{ $navStyle.RelPermalink }}">
+
+
 {{- /* Search */}}
 {{- if (eq .Layout `search`) -}}
 <link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">

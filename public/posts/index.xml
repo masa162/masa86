@@ -6,8 +6,17 @@
     <description>Recent content in Posts on unbelong</description>
     <generator>Hugo -- 0.147.4</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 09 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 13 Jun 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>unbelong はじめました</title>
+      <link>http://localhost:1313/posts/20250613-log/</link>
+      <pubDate>Fri, 13 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/20250613-log/</guid>
+      <description>&lt;p&gt;「どこにも属さないものたちが、一時的に身を寄せる場所。」&lt;/p&gt;
+&lt;p&gt;「unbelong」は、ペンネーム「belong」との対比から生まれた記録と余白のための雑記ブログである。
+未分類、未完成、未発表、未公開——「未」のつくものたちに、いったん居場所を与える場とする。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>記事一覧ページ追加中</title>
       <link>http://localhost:1313/posts/20250609_01-log/</link>

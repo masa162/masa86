@@ -1,0 +1,11 @@
+<header class="site-header">
+  <div class="header-wrapper">
+    <a href="{{ "/" | relURL }}" class="site-title">📝 {{ site.Title }}</a>
+    <button class="menu-toggle" aria-label="メニューを開閉" onclick="document.body.classList.toggle('menu-open')">☰</button>
+  </div>
+<nav class="site-nav">
+<a href="{{ "/page/data/" | relURL }}">🗂️ Data</a>
+<a href="{{ "/tags/" | relURL }}">🏷️ タグ</a>
+<a href="{{ "/page/about/" | relURL }}">👤 このサイトについて</a>
+</nav>
+</header>
