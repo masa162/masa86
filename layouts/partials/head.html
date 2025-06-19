@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{{/* ---------- robots (安全版) ---------- */}}
+{{/* robots */}}
 {{- $noidx := .Params.robotsNoIndex | default false }}
 {{- if and (or hugo.IsProduction (eq site.Params.env "production")) (not $noidx) }}
   <meta name="robots" content="index, follow">
@@ -10,52 +10,54 @@
   <meta name="robots" content="noindex, nofollow">
 {{- end }}
 
-<title>{{ if .IsHome }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ end }}{{ site.Title }}</title>
+<title>{{ if .IsHome }}{{ else }}{{ with .Title }}{{ . }} &#124; {{ end }}{{ end }}{{ site.Title }}</title>
 
-{{/* ---------- keywords / description ---------- */}}
+{{/* keywords & description */}}
 {{- if .IsHome }}
-  {{- with site.Params.keywords }}
-    <meta name="keywords" content="{{ delimit . ", " }}">
-  {{- end }}
+  {{- with site.Params.keywords }}<meta name="keywords" content="{{ delimit . ", " }}">{{- end }}
 {{- else }}
-  <meta name="keywords" content="{{ with .Params.keywords }}{{ delimit . ", " }}{{ else }}{{ with .Params.tags }}{{ delimit . ", " }}{{ end }}{{ end }}">
+  {{- with .Params.keywords }}
+    <meta name="keywords" content="{{ delimit . ", " }}">
+  {{- else }}
+    {{- with .Params.tags }}<meta name="keywords" content="{{ delimit . ", " }}">{{- end }}
+  {{- end }}
 {{- end }}
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if or .IsPage .IsSection }}{{ .Summary | default (print .Title " - " site.Title) }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+<meta name="description"
+      content="{{ with .Description }}{{ . }}{{ else }}{{ if or .IsPage .IsSection }}{{ .Summary | default (print .Title " - " site.Title) }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
 
-<link rel="canonical" href="{{ if .Params.canonicalURL }}{{ trim .Params.canonicalURL " " }}{{ else }}{{ .Permalink }}{{ end }}">
+<link rel="canonical"
+      href="{{ if .Params.canonicalURL }}{{ trim .Params.canonicalURL " " }}{{ else }}{{ .Permalink }}{{ end }}">
 
-{{- with site.Params.analytics.google.SiteVerificationTag }}<meta name="google-site-verification" content="{{ . }}">{{- end }}
-{{- with site.Params.analytics.yandex.SiteVerificationTag }}<meta name="yandex-verification" content="{{ . }}">{{- end }}
-{{- with site.Params.analytics.bing.SiteVerificationTag }}<meta name="msvalidate.01" content="{{ . }}">{{- end }}
-{{- with site.Params.analytics.naver.SiteVerificationTag }}<meta name="naver-site-verification" content="{{ . }}">{{- end }}
+{{/* ---------- CSS bundling (safe) ---------- */}}
 
-{{/* ---------- CSS Bundling (safe) ---------- */}}
-{{- $includes := slice }}
-{{- with resources.Get "css/includes/scroll-bar.css" }}{{ $includes = $includes | append . }}{{- end }}
-{{- $includes_all := slice }}
-{{- if gt (len $includes) 0 }}{{ $includes_all = $includes | resources.Concat "assets/css/includes.css" }}{{- end }}
+{{- /* gather pieces one by one */ -}}
+{{- $parts := slice }}
 
-{{- $theme_vars  := resources.Get "css/core/theme-vars.css" }}
-{{- $reset       := resources.Get "css/core/reset.css" }}
-{{- $media       := resources.Get "css/core/zmedia.css" }}
-{{- $license_css := resources.Get "css/core/license.css" }}
+{{- with resources.Get "css/core/theme-vars.css" }}{{ $parts = $parts | append . }}{{- end }}
+{{- with resources.Get "css/core/reset.css"       }}{{ $parts = $parts | append . }}{{- end }}
+{{- with resources.Get "css/includes/chroma-styles.css" }}{{ $parts = $parts | append . }}{{- end }}
+{{- with resources.Get "css/includes/chroma-mod.css"    }}{{ $parts = $parts | append . }}{{- end }}
+{{- with resources.Get "css/core/zmedia.css"      }}{{ $parts = $parts | append . }}{{- end }}
 
-{{- $common := slice }}
-{{- with resources.Match "css/common/*.css" }}{{ $common = . | resources.Concat "assets/css/common.css" }}{{- end }}
+{{- with resources.Match "css/common/*.css" }}
+  {{- $parts = $parts | append ( . | resources.Concat "assets/css/common.css" ) }}
+{{- end }}
 
-{{- $chroma_styles := resources.Get "css/includes/chroma-styles.css" }}
-{{- $chroma_mod    := resources.Get "css/includes/chroma-mod.css" }}
+{{/* core.css */}}
+{{- $core := $parts | resources.Concat "assets/css/core.css" | resources.Minify }}
 
-{{- $coreParts := slice $theme_vars $reset $chroma_styles $chroma_mod $media }}
-{{- if $common }}      {{ $coreParts = $coreParts | append $common }}{{- end }}
-{{- if $includes_all }}{{ $coreParts = $coreParts | append $includes_all }}{{- end }}
-{{- $core := $coreParts | resources.Concat "assets/css/core.css" | resources.Minify }}
-
+{{/* extended.css (optional) */}}
 {{- $extended := slice }}
-{{- with resources.Match "css/extended/*.css" }}{{ $extended = . | resources.Concat "assets/css/extended.css" | resources.Minify }}{{- end }}
+{{- with resources.Match "css/extended/*.css" }}
+  {{- $extended = ( . | resources.Concat "assets/css/extended.css" | resources.Minify ) }}
+{{- end }}
 
-{{- $styleParts := slice $license_css $core }}
+{{/* license.css (optional) */}}
+{{- $styleParts := slice }}
+{{- with resources.Get "css/core/license.css" }}{{ $styleParts = $styleParts | append . }}{{- end }}
+{{- $styleParts = $styleParts | append $core }}
 {{- if $extended }}{{ $styleParts = $styleParts | append $extended }}{{- end }}
+
 {{- $stylesheet := $styleParts | resources.Concat "assets/css/stylesheet.css" }}
 
 {{- if not site.Params.assets.disableFingerprinting }}
@@ -72,7 +74,7 @@
   <link rel="stylesheet" href="{{ .RelPermalink }}">
 {{- end }}
 
-{{/* ---------- Favicons ---------- */}}
+{{/* Favicons (省略なし) */}}
 <link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
@@ -81,42 +83,17 @@
 <meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#2e2e33" }}">
 <meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
 
-{{- range .AlternativeOutputFormats }}
-<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
-{{- end }}
-{{- range .AllTranslations }}
-<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
-{{- end }}
+{{- range .AlternativeOutputFormats }}<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">{{- end }}
+{{- range .AllTranslations }}<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">{{- end }}
 
 <noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
 
-<style>
-  .toggle-content{overflow:hidden;max-height:0;transition:max-height .4s ease;margin-left:1rem;padding:.5rem 0}
-  .toggle-content.open{max-height:1000px}
-  .toggle-btn{background:none;border:0;font-weight:bold;cursor:pointer;padding:.3rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem}
-  .toggle-btn .icon{transition:transform .3s ease}
-  .toggle-btn.open .icon{transform:rotate(90deg)}
-</style>
-
 <script>
 (function(){
-  const pref=localStorage.getItem('pref-theme');
-  const dark=pref==='dark'||(!pref&&matchMedia('(prefers-color-scheme: dark)').matches);
+  const pref = localStorage.getItem('pref-theme');
+  const dark = pref==='dark'||(!pref&&matchMedia('(prefers-color-scheme: dark)').matches);
   document.body.classList.toggle('dark',dark);
 })();
 </script>
 
 {{- partial "extend_head.html" . -}}
-
-{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
-<meta property="og:title" content="{{ .Title | default site.Title }}">
-<meta property="og:description" content="{{ .Params.description | default site.Params.description }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ .Permalink }}">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="{{ .Title | default site.Title }}">
-<meta name="twitter:description" content="{{ .Params.description | default site.Params.description }}">
-<meta name="twitter:site" content="@your_twitter_id">
-{{- partial "google_analytics.html" . }}
-{{- partial "templates/schema_json.html" . }}
-{{- end }}
