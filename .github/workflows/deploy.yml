@@ -1,19 +1,20 @@
-name: deploy
+name: Deploy
 
 on:
   push:
     branches:
-      - main  # ← デフォルトブランチ名が違う場合は合わせてください
+      - main    # ← デフォルトブランチ名に合わせてください
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          submodules: 'recursive'
+          submodules: recursive
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
@@ -24,9 +25,9 @@ jobs:
       - name: Build
         run: hugo --minify
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          force_orphan: true
+          force_orphan: true   # 既存 gh-pages を毎回クリーンに上書き
