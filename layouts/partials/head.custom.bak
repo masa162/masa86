@@ -2,7 +2,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{{/* robots */}}
+{{/* ───────── robots ───────── */}}
 {{- $noidx := .Params.robotsNoIndex | default false }}
 {{- if and (or hugo.IsProduction (eq site.Params.env "production")) (not $noidx) }}
   <meta name="robots" content="index, follow">
@@ -12,7 +12,7 @@
 
 <title>{{ if .IsHome }}{{ else }}{{ with .Title }}{{ . }} &#124; {{ end }}{{ end }}{{ site.Title }}</title>
 
-{{/* keywords & description */}}
+{{/* ───────── keywords / description ───────── */}}
 {{- if .IsHome }}
   {{- with site.Params.keywords }}<meta name="keywords" content="{{ delimit . ", " }}">{{- end }}
 {{- else }}
@@ -22,49 +22,51 @@
     {{- with .Params.tags }}<meta name="keywords" content="{{ delimit . ", " }}">{{- end }}
   {{- end }}
 {{- end }}
-<meta name="description"
-      content="{{ with .Description }}{{ . }}{{ else }}{{ if or .IsPage .IsSection }}{{ .Summary | default (print .Title " - " site.Title) }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if or .IsPage .IsSection }}{{ .Summary | default (print .Title " - " site.Title) }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
 
-<link rel="canonical"
-      href="{{ if .Params.canonicalURL }}{{ trim .Params.canonicalURL " " }}{{ else }}{{ .Permalink }}{{ end }}">
+<link rel="canonical" href="{{ if .Params.canonicalURL }}{{ trim .Params.canonicalURL " " }}{{ else }}{{ .Permalink }}{{ end }}">
 
-{{/* ---------- CSS bundling (safe) ---------- */}}
+{{/* ───────── CSS bundling (safe) ───────── */}}
+{{- $pieces := slice }}
 
-{{- /* gather pieces one by one */ -}}
-{{- $parts := slice }}
-
-{{- with resources.Get "css/core/theme-vars.css" }}{{ $parts = $parts | append . }}{{- end }}
-{{- with resources.Get "css/core/reset.css"       }}{{ $parts = $parts | append . }}{{- end }}
-{{- with resources.Get "css/includes/chroma-styles.css" }}{{ $parts = $parts | append . }}{{- end }}
-{{- with resources.Get "css/includes/chroma-mod.css"    }}{{ $parts = $parts | append . }}{{- end }}
-{{- with resources.Get "css/core/zmedia.css"      }}{{ $parts = $parts | append . }}{{- end }}
-
+{{- with resources.Get "css/core/theme-vars.css"      }}{{ $pieces = $pieces | append . }}{{- end }}
+{{- with resources.Get "css/core/reset.css"           }}{{ $pieces = $pieces | append . }}{{- end }}
+{{- with resources.Get "css/includes/chroma-styles.css" }}{{ $pieces = $pieces | append . }}{{- end }}
+{{- with resources.Get "css/includes/chroma-mod.css"    }}{{ $pieces = $pieces | append . }}{{- end }}
+{{- with resources.Get "css/core/zmedia.css"          }}{{ $pieces = $pieces | append . }}{{- end }}
 {{- with resources.Match "css/common/*.css" }}
-  {{- $parts = $parts | append ( . | resources.Concat "assets/css/common.css" ) }}
+  {{- $pieces = $pieces | append ( . | resources.Concat "assets/css/common.css" ) }}
 {{- end }}
 
-{{/* core.css */}}
-{{- $core := $parts | resources.Concat "assets/css/core.css" | resources.Minify }}
+{{/* core.css : スライス個数で分岐 */}}
+{{- $core := nil }}
+{{- if eq (len $pieces) 1 }}
+  {{- $core = index $pieces 0 }}
+{{- else if gt (len $pieces) 1 }}
+  {{- $core = $pieces | resources.Concat "assets/css/core.css" | resources.Minify }}
+{{- end }}
 
 {{/* extended.css (optional) */}}
-{{- $extended := slice }}
+{{- $extended := nil }}
 {{- with resources.Match "css/extended/*.css" }}
-  {{- $extended = ( . | resources.Concat "assets/css/extended.css" | resources.Minify ) }}
+  {{- $extended = . | resources.Concat "assets/css/extended.css" | resources.Minify }}
 {{- end }}
 
-{{/* license.css (optional) */}}
+{{/* license.css (optional) + 最終 stylesheet.css */}}
 {{- $styleParts := slice }}
 {{- with resources.Get "css/core/license.css" }}{{ $styleParts = $styleParts | append . }}{{- end }}
-{{- $styleParts = $styleParts | append $core }}
-{{- if $extended }}{{ $styleParts = $styleParts | append $extended }}{{- end }}
+{{- if $core }}      {{ $styleParts = $styleParts | append $core }}{{- end }}
+{{- if $extended }}  {{ $styleParts = $styleParts | append $extended }}{{- end }}
 
-{{- $stylesheet := $styleParts | resources.Concat "assets/css/stylesheet.css" }}
+{{- $stylesheet := index $styleParts 0 }}
+{{- if gt (len $styleParts) 1 }}
+  {{- $stylesheet = $styleParts | resources.Concat "assets/css/stylesheet.css" }}
+{{- end }}
 
 {{- if not site.Params.assets.disableFingerprinting }}
   {{- $stylesheet = $stylesheet | fingerprint }}
   <link rel="preload stylesheet" as="style" crossorigin="anonymous"
-        href="{{ $stylesheet.RelPermalink }}"
-        integrity="{{ $stylesheet.Data.Integrity }}">
+        href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}">
 {{- else }}
   <link rel="preload stylesheet" as="style" crossorigin="anonymous"
         href="{{ $stylesheet.RelPermalink }}">
@@ -74,7 +76,7 @@
   <link rel="stylesheet" href="{{ .RelPermalink }}">
 {{- end }}
 
-{{/* Favicons (省略なし) */}}
+{{/* ───────── favicons ───────── */}}
 <link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">

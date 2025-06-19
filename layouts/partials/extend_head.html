@@ -1,0 +1,14 @@
+{{/* ダークモード切替ボタン用のスクリプト */}}
+<script>
+  (function () {
+    const pref = localStorage.getItem('pref-theme');
+    const dark = pref==='dark'||(!pref && matchMedia('(prefers-color-scheme: dark)').matches);
+    document.body.classList.toggle('dark', dark);
+  })();
+</script>
+
+<style>
+  .toggle-content{overflow:hidden;max-height:0;transition:max-height .4s ease}
+  .toggle-content.open{max-height:1000px}
+</style>
+<link rel="stylesheet" href="/css/custom.css">
