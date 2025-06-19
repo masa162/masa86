@@ -31,3 +31,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           force_orphan: true   # 既存 gh-pages を毎回クリーンに上書き
+          force: true 
