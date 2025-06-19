@@ -35,9 +35,8 @@
 
 {{- /* Styles */}}
 {{- $includes := slice }}
-{{- $scrollStyle := resources.Get "css/includes/scroll-bar.css" }}
-{{- if $scrollStyle }}
-  {{- $includes = $includes | append $scrollStyle }}
+{{- with resources.Get "css/includes/scroll-bar.css" }}
+  {{- $includes = $includes | append . }}
 {{- end }}
 {{- $includes_all := "" }}
 {{- if gt (len $includes) 0 }}
@@ -48,13 +47,16 @@
 {{- $reset := resources.Get "css/core/reset.css" }}
 {{- $media := resources.Get "css/core/zmedia.css" }}
 {{- $license_css := resources.Get "css/core/license.css" }}
+
 {{- $common_files := resources.Match "css/common/*.css" }}
 {{- $common := "" }}
 {{- if gt (len $common_files) 0 }}
   {{- $common = $common_files | resources.Concat "assets/css/common.css" }}
 {{- end }}
+
 {{- $chroma_styles := resources.Get "css/includes/chroma-styles.css" }}
 {{- $chroma_mod := resources.Get "css/includes/chroma-mod.css" }}
+
 {{- $coreParts := slice $theme_vars $reset }}
 {{- if $common }}{{ $coreParts = $coreParts | append $common }}{{ end }}
 {{- $coreParts = $coreParts | append $chroma_styles $chroma_mod }}
@@ -73,10 +75,10 @@
 {{- $stylesheet := $styleParts | resources.Concat "assets/css/stylesheet.css" }}
 
 {{- if not site.Params.assets.disableFingerprinting }}
-{{- $stylesheet = $stylesheet | fingerprint }}
-<link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}" rel="preload stylesheet" as="style">
+  {{- $stylesheet = $stylesheet | fingerprint }}
+  <link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}" rel="preload stylesheet" as="style">
 {{- else }}
-<link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" rel="preload stylesheet" as="style">
+  <link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" rel="preload stylesheet" as="style">
 {{- end }}
 
 {{- $navStyle := resources.Get "css/override/nav.css" | resources.Minify }}
@@ -91,12 +93,12 @@
 <meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#2e2e33" }}">
 <meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
 
-{{ range .AlternativeOutputFormats -}}
+{{- range .AlternativeOutputFormats }}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
-{{ end -}}
-{{- range .AllTranslations -}}
+{{- end }}
+{{- range .AllTranslations }}
 <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
-{{ end -}}
+{{- end }}
 
 <noscript>
   <style>
