@@ -2,79 +2,57 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{{- if hugo.IsProduction | or (eq site.Params.env "production") | and (ne .Params.robotsNoIndex true) }}
-<meta name="robots" content="index, follow">
+{{/* ---------- robots (安全版) ---------- */}}
+{{- $noidx := .Params.robotsNoIndex | default false }}
+{{- if and (or hugo.IsProduction (eq site.Params.env "production")) (not $noidx) }}
+  <meta name="robots" content="index, follow">
 {{- else }}
-<meta name="robots" content="noindex, nofollow">
+  <meta name="robots" content="noindex, nofollow">
 {{- end }}
 
 <title>{{ if .IsHome }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ end }}{{ site.Title }}</title>
 
-{{- /* ---------- keywords / description ---------- */}}
+{{/* ---------- keywords / description ---------- */}}
 {{- if .IsHome }}
   {{- with site.Params.keywords }}
     <meta name="keywords" content="{{ delimit . ", " }}">
   {{- end }}
 {{- else }}
-  <meta name="keywords"
-        content="{{  with .Params.keywords }}
-                     {{- delimit . ", " -}}
-                   {{ else }}
-                     {{- with .Params.tags }}{{ delimit . ", " }}{{ end -}}
-                   {{ end }}">
+  <meta name="keywords" content="{{ with .Params.keywords }}{{ delimit . ", " }}{{ else }}{{ with .Params.tags }}{{ delimit . ", " }}{{ end }}{{ end }}">
 {{- end }}
-<meta name="description"
-      content="{{ with .Description }}
-                 {{- . -}}
-               {{ else }}
-                 {{- if or .IsPage .IsSection }}
-                   {{ .Summary | default (print .Title " - " site.Title) }}
-                 {{- else }}
-                   {{ site.Params.description }}
-                 {{- end }}
-               {{- end }}">
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if or .IsPage .IsSection }}{{ .Summary | default (print .Title " - " site.Title) }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
 
-<link rel="canonical"
-      href="{{ if .Params.canonicalURL }}{{ trim .Params.canonicalURL " " }}{{ else }}{{ .Permalink }}{{ end }}">
+<link rel="canonical" href="{{ if .Params.canonicalURL }}{{ trim .Params.canonicalURL " " }}{{ else }}{{ .Permalink }}{{ end }}">
 
 {{- with site.Params.analytics.google.SiteVerificationTag }}<meta name="google-site-verification" content="{{ . }}">{{- end }}
 {{- with site.Params.analytics.yandex.SiteVerificationTag }}<meta name="yandex-verification" content="{{ . }}">{{- end }}
 {{- with site.Params.analytics.bing.SiteVerificationTag }}<meta name="msvalidate.01" content="{{ . }}">{{- end }}
 {{- with site.Params.analytics.naver.SiteVerificationTag }}<meta name="naver-site-verification" content="{{ . }}">{{- end }}
 
-{{/* ---------- CSS Bundling ---------- */}}
+{{/* ---------- CSS Bundling (safe) ---------- */}}
 {{- $includes := slice }}
 {{- with resources.Get "css/includes/scroll-bar.css" }}{{ $includes = $includes | append . }}{{- end }}
 {{- $includes_all := slice }}
-{{- if gt (len $includes) 0 }}
-  {{- $includes_all = $includes | resources.Concat "assets/css/includes.css" }}
-{{- end }}
+{{- if gt (len $includes) 0 }}{{ $includes_all = $includes | resources.Concat "assets/css/includes.css" }}{{- end }}
 
 {{- $theme_vars  := resources.Get "css/core/theme-vars.css" }}
 {{- $reset       := resources.Get "css/core/reset.css" }}
 {{- $media       := resources.Get "css/core/zmedia.css" }}
 {{- $license_css := resources.Get "css/core/license.css" }}
 
-{{- $common      := slice }}
-{{- with resources.Match "css/common/*.css" }}
-  {{- $common = . | resources.Concat "assets/css/common.css" }}
-{{- end }}
+{{- $common := slice }}
+{{- with resources.Match "css/common/*.css" }}{{ $common = . | resources.Concat "assets/css/common.css" }}{{- end }}
 
 {{- $chroma_styles := resources.Get "css/includes/chroma-styles.css" }}
 {{- $chroma_mod    := resources.Get "css/includes/chroma-mod.css" }}
 
-{{- $coreParts := slice $theme_vars $reset }}
-{{- if $common }}       {{ $coreParts = $coreParts | append $common }}{{- end }}
-{{- $coreParts = $coreParts | append $chroma_styles $chroma_mod }}
-{{- if $includes_all }} {{ $coreParts = $coreParts | append $includes_all }}{{- end }}
-{{- $coreParts = $coreParts | append $media }}
-
+{{- $coreParts := slice $theme_vars $reset $chroma_styles $chroma_mod $media }}
+{{- if $common }}      {{ $coreParts = $coreParts | append $common }}{{- end }}
+{{- if $includes_all }}{{ $coreParts = $coreParts | append $includes_all }}{{- end }}
 {{- $core := $coreParts | resources.Concat "assets/css/core.css" | resources.Minify }}
 
 {{- $extended := slice }}
-{{- with resources.Match "css/extended/*.css" }}
-  {{- $extended = . | resources.Concat "assets/css/extended.css" | resources.Minify }}
-{{- end }}
+{{- with resources.Match "css/extended/*.css" }}{{ $extended = . | resources.Concat "assets/css/extended.css" | resources.Minify }}{{- end }}
 
 {{- $styleParts := slice $license_css $core }}
 {{- if $extended }}{{ $styleParts = $styleParts | append $extended }}{{- end }}
@@ -96,17 +74,12 @@
 
 {{/* ---------- Favicons ---------- */}}
 <link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
-<link rel="icon" type="image/png" sizes="16x16"
-      href="{{ site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
-<link rel="icon" type="image/png" sizes="32x32"
-      href="{{ site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
-<link rel="apple-touch-icon"
-      href="{{ site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" | absURL }}">
-<link rel="mask-icon"
-      href="{{ site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
+<link rel="apple-touch-icon" href="{{ site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" | absURL }}">
+<link rel="mask-icon" href="{{ site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}">
 <meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#2e2e33" }}">
-<meta name="msapplication-TileColor"
-      content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
+<meta name="msapplication-TileColor" content="{{ site.Params.assets.msapplication_TileColor | default "#2e2e33" }}">
 
 {{- range .AlternativeOutputFormats }}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
