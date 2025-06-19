@@ -58,11 +58,63 @@
 
     </style>
 </noscript>
+
+
+<script>
+  (function () {
+    const userPref = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = userPref === 'dark' || (!userPref && prefersDark);
+    if (isDark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  })();
+</script>
+
+<style>
+  .toggle-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+    margin-left: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  .toggle-content.open {
+    max-height: 1000px;  
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.3rem 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .toggle-btn .icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .toggle-btn.open .icon {
+    transform: rotate(90deg);  
+  }
+</style>
 </head>
+
 
 <body class="list" id="top"><header class="site-header">
   <div class="header-wrapper">
     <a href="/" class="site-title">📝 unbelong</a>
+    <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
+
     <button class="menu-toggle" aria-label="メニューを開閉" onclick="document.body.classList.toggle('menu-open')">☰</button>
   </div>
 <nav class="site-nav">
@@ -109,6 +161,37 @@
     © 2025 unbelong ｜ <a href="https://unbelong.xyz/">投稿一覧</a>
   </p>
 </footer>
-</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('theme-toggle');
 
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark');
+        localStorage.setItem('pref-theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        localStorage.setItem('pref-theme', 'light');
+      }
+    }
+
+    
+    const userPref = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = userPref === 'dark' || (!userPref && prefersDark);
+    setTheme(isDark ? 'dark' : 'light');
+
+    
+    toggle?.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
+    });
+  });
+</script>
+
+<script src="/js/toggle.js" defer></script>
+
+</body>
 </html>
+
+

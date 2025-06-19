@@ -151,6 +151,56 @@
     {{- end }}
 </noscript>
 
+<!-- Theme toggle script -->
+<script>
+  (function () {
+    const userPref = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = userPref === 'dark' || (!userPref && prefersDark);
+    if (isDark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  })();
+</script>
+
+<style>
+  .toggle-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+    margin-left: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  .toggle-content.open {
+    max-height: 1000px; /* 必要に応じて調整 */
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.3rem 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .toggle-btn .icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .toggle-btn.open .icon {
+    transform: rotate(90deg); /* ▶ → ▼ */
+  }
+</style>
+
+
 {{- partial "extend_head.html" . -}}
 
 {{- /* Misc */}}

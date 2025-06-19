@@ -4,10 +4,24 @@
     <title>Posts on unbelong</title>
     <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on unbelong</description>
-    <generator>Hugo -- 0.147.4</generator>
+    <generator>Hugo -- 0.147.3</generator>
     <language>ja</language>
-    <lastBuildDate>Fri, 13 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Jun 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>夏日</title>
+      <link>http://localhost:1313/posts/%E5%A4%8F%E6%97%A5/</link>
+      <pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E5%A4%8F%E6%97%A5/</guid>
+      <description>&lt;p&gt;夏日&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>熱帯夜夏日</title>
+      <link>http://localhost:1313/posts/%E7%86%B1%E5%B8%AF%E5%A4%9C%E5%A4%8F%E6%97%A5/</link>
+      <pubDate>Tue, 17 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E7%86%B1%E5%B8%AF%E5%A4%9C%E5%A4%8F%E6%97%A5/</guid>
+      <description>&lt;p&gt;熱帯夜夏日&lt;/p&gt;</description>
+    </item>
     <item>
       <title>unbelong はじめました</title>
       <link>http://localhost:1313/posts/20250613-log/</link>

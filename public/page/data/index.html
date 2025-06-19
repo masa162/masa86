@@ -57,11 +57,63 @@
 
     </style>
 </noscript>
+
+
+<script>
+  (function () {
+    const userPref = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = userPref === 'dark' || (!userPref && prefersDark);
+    if (isDark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  })();
+</script>
+
+<style>
+  .toggle-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+    margin-left: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  .toggle-content.open {
+    max-height: 1000px;  
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.3rem 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .toggle-btn .icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .toggle-btn.open .icon {
+    transform: rotate(90deg);  
+  }
+</style>
 </head>
 
-<body class="list" id="top"><header class="site-header">
+
+<body class="" id="top"><header class="site-header">
   <div class="header-wrapper">
     <a href="/" class="site-title">📝 unbelong</a>
+    <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
+
     <button class="menu-toggle" aria-label="メニューを開閉" onclick="document.body.classList.toggle('menu-open')">☰</button>
   </div>
 <nav class="site-nav">
@@ -71,107 +123,201 @@
 </nav>
 </header>
 <main class="main">
+<main>
+  <h1>📂 Data</h1>
 
-<header class="page-header">
-  <h1>
-    Data
-  </h1>
-  <div class="post-description">
-    投稿記事のアーカイブ一覧（日付ベース）。
+  <div class="archive">
+    
+      <div class="year-block">
+        <button class="toggle-btn" data-target="y2025">
+          ▶ 2025年
+        </button>
+
+        <div class="toggle-content" id="y2025">
+          
+            <div class="month-block">
+              <button class="toggle-btn" data-target="ypage-3m06">
+                ▶ 06月
+              </button>
+
+              <ul class="toggle-content" id="ypage-3m06">
+                
+                  
+                    <li>
+                      <a href="/page/data/">
+                        18日 — Data
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/page/about/">
+                        18日 — このサイトについて
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/posts/%E5%A4%8F%E6%97%A5/">
+                        18日 — 夏日
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li>
+                      <a href="/posts/%E7%86%B1%E5%B8%AF%E5%A4%9C%E5%A4%8F%E6%97%A5/">
+                        17日 — 熱帯夜夏日
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li>
+                      <a href="/posts/20250613-log/">
+                        13日 — unbelong はじめました
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li>
+                      <a href="/posts/20250609_01-log/">
+                        9日 — 記事一覧ページ追加中
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li>
+                      <a href="/posts/20250605/">
+                        6日 — 2日目の記録
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/posts/2%E6%97%A5%E7%9B%AE%E3%81%AE%E8%A8%98%E9%8C%B2/">
+                        6日 — 2日目の記録
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/posts/2025-06-06-add-pages/">
+                        6日 — 2025-06-06　add　pages
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/posts/20250606/">
+                        6日 — tommorow
+                      </a>
+                    </li>
+                  
+                
+                  
+                    <li>
+                      <a href="/posts/20250605-log/">
+                        5日 — recroom はじめました
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/posts/20250605_03-log/">
+                        5日 — 物価高騰
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/posts/20250605-start/">
+                        5日 — recroom はじめました
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/posts/20250605_04-log/">
+                        5日 — 21lessons
+                      </a>
+                    </li>
+                  
+                    <li>
+                      <a href="/posts/20250605-title/">
+                        5日 — 記事タイトル
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </div>
+          
+        </div>
+      </div>
+    
+      <div class="year-block">
+        <button class="toggle-btn" data-target="y0001">
+          ▶ 0001年
+        </button>
+
+        <div class="toggle-content" id="y0001">
+          
+            <div class="month-block">
+              <button class="toggle-btn" data-target="ypage-3m01">
+                ▶ 01月
+              </button>
+
+              <ul class="toggle-content" id="ypage-3m01">
+                
+                  
+                    <li>
+                      <a href="/archive/">
+                        1日 — 投稿アーカイブ
+                      </a>
+                    </li>
+                  
+                
+              </ul>
+            </div>
+          
+        </div>
+      </div>
+    
   </div>
-</header>
-<div class="archive-year">
-  <h2 class="archive-year-header" id="2025">
-    <a class="archive-header-link" href="#2025">2025</a>
-    <sup class="archive-count">&nbsp;11</sup>
-  </h2>
-  <div class="archive-month">
-    <h3 class="archive-month-header" id="2025-June">
-      <a class="archive-header-link" href="#2025-June">June</a>
-      <sup class="archive-count">&nbsp;11</sup>
-    </h3>
-    <div class="archive-posts">
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">unbelong はじめました
-        </h3>
-        <div class="archive-meta"><span title='2025-06-13 00:00:00 +0000 UTC'>June 13, 2025</span></div>
-        <a class="entry-link" aria-label="post link to unbelong はじめました" href="http://localhost:1313/posts/20250613-log/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">記事一覧ページ追加中
-        </h3>
-        <div class="archive-meta"><span title='2025-06-09 00:00:00 +0000 UTC'>June 9, 2025</span></div>
-        <a class="entry-link" aria-label="post link to 記事一覧ページ追加中" href="http://localhost:1313/posts/20250609_01-log/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">2日目の記録
-        </h3>
-        <div class="archive-meta"><span title='2025-06-06 10:00:00 +0900 JST'>June 6, 2025</span></div>
-        <a class="entry-link" aria-label="post link to 2日目の記録" href="http://localhost:1313/posts/20250605/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">2日目の記録
-        </h3>
-        <div class="archive-meta"><span title='2025-06-06 10:00:00 +0900 JST'>June 6, 2025</span></div>
-        <a class="entry-link" aria-label="post link to 2日目の記録" href="http://localhost:1313/posts/2%E6%97%A5%E7%9B%AE%E3%81%AE%E8%A8%98%E9%8C%B2/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">2025-06-06　add　pages
-        </h3>
-        <div class="archive-meta"><span title='2025-06-06 00:00:00 +0000 UTC'>June 6, 2025</span></div>
-        <a class="entry-link" aria-label="post link to 2025-06-06　add　pages" href="http://localhost:1313/posts/2025-06-06-add-pages/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">tommorow
-        </h3>
-        <div class="archive-meta"><span title='2025-06-06 00:00:00 +0000 UTC'>June 6, 2025</span></div>
-        <a class="entry-link" aria-label="post link to tommorow" href="http://localhost:1313/posts/20250606/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">recroom はじめました
-        </h3>
-        <div class="archive-meta"><span title='2025-06-05 19:30:00 +0900 JST'>June 5, 2025</span></div>
-        <a class="entry-link" aria-label="post link to recroom はじめました" href="http://localhost:1313/posts/20250605-log/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">物価高騰
-        </h3>
-        <div class="archive-meta"><span title='2025-06-05 19:30:00 +0900 JST'>June 5, 2025</span></div>
-        <a class="entry-link" aria-label="post link to 物価高騰" href="http://localhost:1313/posts/20250605_03-log/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">recroom はじめました
-        </h3>
-        <div class="archive-meta"><span title='2025-06-05 15:00:00 +0900 JST'>June 5, 2025</span></div>
-        <a class="entry-link" aria-label="post link to recroom はじめました" href="http://localhost:1313/posts/20250605-start/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">21lessons
-        </h3>
-        <div class="archive-meta"><span title='2025-06-05 00:00:00 +0000 UTC'>June 5, 2025</span></div>
-        <a class="entry-link" aria-label="post link to 21lessons" href="http://localhost:1313/posts/20250605_04-log/"></a>
-      </div>
-      <div class="archive-entry">
-        <h3 class="archive-entry-title entry-hint-parent">記事タイトル
-          <span class="entry-hint" title="Draft">
-            <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 -960 960 960" fill="currentColor">
-              <path
-                d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-            </svg>
-          </span>
-        </h3>
-        <div class="archive-meta"><span title='2025-06-05 00:00:00 +0000 UTC'>June 5, 2025</span></div>
-        <a class="entry-link" aria-label="post link to 記事タイトル" href="http://localhost:1313/posts/20250605-title/"></a>
-      </div>
-    </div>
-  </div>
-</div>
+</main>
+
     </main>
     <footer>
   <p style="text-align: center; font-size: 0.8rem;">
     © 2025 unbelong ｜ <a href="https://unbelong.xyz/">投稿一覧</a>
   </p>
 </footer>
-</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('theme-toggle');
 
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark');
+        localStorage.setItem('pref-theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        localStorage.setItem('pref-theme', 'light');
+      }
+    }
+
+    
+    const userPref = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = userPref === 'dark' || (!userPref && prefersDark);
+    setTheme(isDark ? 'dark' : 'light');
+
+    
+    toggle?.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
+    });
+  });
+</script>
+
+<script src="/js/toggle.js" defer></script>
+
+</body>
 </html>
+
+

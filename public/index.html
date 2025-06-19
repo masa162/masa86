@@ -2,7 +2,7 @@
 <html lang="en" dir="auto">
 
 <head>
-	<meta name="generator" content="Hugo 0.147.4"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+	<meta name="generator" content="Hugo 0.147.3"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
@@ -59,11 +59,63 @@
 
     </style>
 </noscript>
+
+
+<script>
+  (function () {
+    const userPref = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = userPref === 'dark' || (!userPref && prefersDark);
+    if (isDark) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  })();
+</script>
+
+<style>
+  .toggle-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+    margin-left: 1rem;
+    padding: 0.5rem 0;
+  }
+
+  .toggle-content.open {
+    max-height: 1000px;  
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0.3rem 0;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .toggle-btn .icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .toggle-btn.open .icon {
+    transform: rotate(90deg);  
+  }
+</style>
 </head>
+
 
 <body class="list" id="top"><header class="site-header">
   <div class="header-wrapper">
     <a href="/" class="site-title">📝 unbelong</a>
+    <button id="theme-toggle" aria-label="Toggle Theme">🌓</button>
+
     <button class="menu-toggle" aria-label="メニューを開閉" onclick="document.body.classList.toggle('menu-open')">☰</button>
   </div>
 <nav class="site-nav">
@@ -85,6 +137,19 @@
   </div>
   <footer class="entry-footer"><span title='2025-06-18 00:00:00 +0000 UTC'>June 18, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 夏日" href="http://localhost:1313/posts/%E5%A4%8F%E6%97%A5/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">熱帯夜夏日
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>熱帯夜夏日
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-06-17 00:00:00 +0000 UTC'>June 17, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 熱帯夜夏日" href="http://localhost:1313/posts/%E7%86%B1%E5%B8%AF%E5%A4%9C%E5%A4%8F%E6%97%A5/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -193,19 +258,6 @@ test
   <footer class="entry-footer"><span title='2025-06-05 19:30:00 +0900 JST'>June 5, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 物価高騰" href="http://localhost:1313/posts/20250605_03-log/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">recroom はじめました
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>このブログは「休息と記録の部屋」として、自分だけの静かなログを残していく場所です。
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-06-05 15:00:00 +0900 JST'>June 5, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to recroom はじめました" href="http://localhost:1313/posts/20250605-start/"></a>
-</article>
 <footer class="page-footer">
   <nav class="pagination">
     <a class="next" href="http://localhost:1313/page/2/">Next&nbsp;&nbsp;»
@@ -218,6 +270,37 @@ test
     © 2025 unbelong ｜ <a href="https://unbelong.xyz/">投稿一覧</a>
   </p>
 </footer>
-</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('theme-toggle');
 
+    function setTheme(theme) {
+      if (theme === 'dark') {
+        document.body.classList.add('dark');
+        localStorage.setItem('pref-theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        localStorage.setItem('pref-theme', 'light');
+      }
+    }
+
+    
+    const userPref = localStorage.getItem('pref-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = userPref === 'dark' || (!userPref && prefersDark);
+    setTheme(isDark ? 'dark' : 'light');
+
+    
+    toggle?.addEventListener('click', () => {
+      const isDark = document.body.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
+    });
+  });
+</script>
+
+<script src="/js/toggle.js" defer></script>
+
+</body>
 </html>
+
+
