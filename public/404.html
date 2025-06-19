@@ -7,72 +7,52 @@
 <meta name="robots" content="noindex, nofollow">
 
 <title>404 Page not found | unbelong</title>
-<meta name="keywords" content="">
-<meta name="description" content="記録と感覚の交差点、unbelongの雑記ブログ。">
-<link rel="canonical" href="http://localhost:1313/404.html">
-  <link crossorigin="anonymous" href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css" integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=" rel="preload stylesheet" as="style">
-<link rel="stylesheet" href="/css/override/nav.min.css">
+  <meta name="keywords"
+        content="">
+<meta name="description"
+      content="
+                   記録と感覚の交差点、unbelongの雑記ブログ。">
+
+<link rel="canonical"
+      href="http://localhost:1313/404.html">
+
+        
+  <link rel="preload stylesheet" as="style" crossorigin="anonymous"
+        href="/assets/css/stylesheet.2211ca3164be7830024f6aad2b3a2e520843a64f8f048445c3401c1249aa051d.css"
+        integrity="sha256-IhHKMWS&#43;eDACT2qtKzouUghDpk&#43;PBIRFw0AcEkmqBR0=">
+  <link rel="stylesheet" href="/css/override/nav.min.css">
+
+
 <link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" type="image/png" sizes="16x16"
+      href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32"
+      href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon"
+      href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon"
+      href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="msapplication-TileColor"
+      content="#2e2e33">
 <link rel="alternate" hreflang="en" href="http://localhost:1313/404.html">
 
-<noscript>
-  <style>
-    #theme-toggle, .top-link { display: none; }
-  </style>
-</noscript>
+<noscript><style>#theme-toggle,.top-link{display:none}</style></noscript>
 
 <style>
-  .toggle-content {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.4s ease;
-    margin-left: 1rem;
-    padding: 0.5rem 0;
-  }
-
-  .toggle-content.open {
-    max-height: 1000px;
-  }
-
-  .toggle-btn {
-    background: none;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 0.3rem 0;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .toggle-btn .icon {
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-
-  .toggle-btn.open .icon {
-    transform: rotate(90deg);
-  }
+  .toggle-content{overflow:hidden;max-height:0;transition:max-height .4s ease;margin-left:1rem;padding:.5rem 0}
+  .toggle-content.open{max-height:1000px}
+  .toggle-btn{background:none;border:0;font-weight:bold;cursor:pointer;padding:.3rem 0;font-size:1rem;display:flex;align-items:center;gap:.4rem}
+  .toggle-btn .icon{transition:transform .3s ease}
+  .toggle-btn.open .icon{transform:rotate(90deg)}
 </style>
 
 <script>
-  (function () {
-    const userPref = localStorage.getItem('pref-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDark = userPref === 'dark' || (!userPref && prefersDark);
-    if (isDark) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-  })();
+(function(){
+  const pref=localStorage.getItem('pref-theme');
+  const dark=pref==='dark'||(!pref&&matchMedia('(prefers-color-scheme: dark)').matches);
+  document.body.classList.toggle('dark',dark);
+})();
 </script>
 
 </head>
