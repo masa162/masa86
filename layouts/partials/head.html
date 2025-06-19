@@ -38,12 +38,10 @@
 {{- /* Styles */}}
 
 {{- /* includes */}}
+{{- $scrollStyle := (resources.Get "css/includes/scroll-bar.css") | default nil }}
 {{- $includes := slice }}
-{{- $includes = $includes | append (" " | resources.FromString "assets/css/includes-blank.css")}}
-
-{{- if not (eq site.Params.assets.disableScrollBarStyle true) }}
-    {{- $ScrollStyle := (resources.Get "css/includes/scroll-bar.css") }}
-    {{- $includes = (append $ScrollStyle $includes) }}
+{{- if $scrollStyle }}
+  {{- $includes = (append $scrollStyle $includes) }}
 {{- end }}
 
 {{- $includes_all := $includes | resources.Concat "assets/css/includes.css" }}
