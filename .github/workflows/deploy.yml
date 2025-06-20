@@ -4,34 +4,38 @@ on:
   push:
     branches: [main]
 
-concurrency:               # ★ ここを追加
-  group: "deploy-pages"    # ジョブ名は任意
-  cancel-in-progress: true # 古い run を自動キャンセル
+concurrency:                 # ← 同時実行を 1 本に制限
+  group: deploy-pages
+  cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # ❶ ソース + サブモジュール取得
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
 
+      # ❷ Hugo セットアップ
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.147.3'
           extended: true
 
+      # ❸ ビルド
       - name: Build site
         run: hugo --minify
 
+      # ❹ gh-pages へ“強制上書き”デプロイ
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v4       # ★ v4 に更新
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./public                   # Hugo 出力先
           publish_branch: gh-pages
-          force_orphan: true
+          force_orphan: true                     # ★ ここが肝
