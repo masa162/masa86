@@ -6,13 +6,27 @@
     <description>Recent content in Tags on unbelong</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 18 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Jun 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>#</title>
       <link>http://localhost:1313/tags/%23/</link>
-      <pubDate>Wed, 18 Jun 2025 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 20 Jun 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/tags/%23/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ゲーム</title>
+      <link>http://localhost:1313/tags/%E3%82%B2%E3%83%BC%E3%83%A0/</link>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/%E3%82%B2%E3%83%BC%E3%83%A0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ラーメン</title>
+      <link>http://localhost:1313/tags/%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3/</link>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3/</guid>
       <description></description>
     </item>
     <item>

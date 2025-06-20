@@ -6,8 +6,51 @@
     <description>Recent content in Posts on unbelong</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>ja</language>
-    <lastBuildDate>Wed, 18 Jun 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Jun 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>あじさい</title>
+      <link>http://localhost:1313/posts/%E3%81%82%E3%81%98%E3%81%95%E3%81%84/</link>
+      <pubDate>Fri, 20 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E3%81%82%E3%81%98%E3%81%95%E3%81%84/</guid>
+      <description>&lt;p&gt;あじさい
+さいた&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>SIE</title>
+      <link>http://localhost:1313/posts/sie/</link>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/sie/</guid>
+      <description>&lt;p&gt;ghost of tsushima の続編がやっぱりきになる&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>stellar blade</title>
+      <link>http://localhost:1313/posts/stellar-blade/</link>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/stellar-blade/</guid>
+      <description>&lt;p&gt;すごく久しぶりにPS5を触った&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>あじさい</title>
+      <link>http://localhost:1313/posts/%E3%81%82%E3%81%98%E3%81%95%E3%81%84/</link>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E3%81%82%E3%81%98%E3%81%95%E3%81%84/</guid>
+      <description>&lt;p&gt;あじさい&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>暑い日</title>
+      <link>http://localhost:1313/posts/%E6%9A%91%E3%81%84%E6%97%A5/</link>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E6%9A%91%E3%81%84%E6%97%A5/</guid>
+      <description>&lt;p&gt;暑い日&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>町田商店</title>
+      <link>http://localhost:1313/posts/%E7%94%BA%E7%94%B0%E5%95%86%E5%BA%97/</link>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/%E7%94%BA%E7%94%B0%E5%95%86%E5%BA%97/</guid>
+      <description>&lt;p&gt;ゲームとラーメン人生の大きな構成要素&lt;/p&gt;</description>
+    </item>
     <item>
       <title>夏日</title>
       <link>http://localhost:1313/posts/%E5%A4%8F%E6%97%A5/</link>
@@ -61,6 +104,13 @@ testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
       <description>&lt;p&gt;６つめのページ&lt;/p&gt;
 &lt;p&gt;CLIに少しずつ少しずつ慣れていきたい&lt;/p&gt;
 &lt;p&gt;test&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>tommorow</title>
+      <link>http://localhost:1313/posts/20250606/</link>
+      <pubDate>Fri, 06 Jun 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/20250606/</guid>
+      <description>&lt;p&gt;今日は朝から雨だった。&lt;/p&gt;</description>
     </item>
     <item>
       <title>tommorow</title>
