@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
 
-concurrency:
+concurrency:              # ← 同時実行 1 本だけに制限
   group: deploy-pages
   cancel-in-progress: true
 
@@ -28,9 +28,10 @@ jobs:
         run: hugo --minify
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@v4      # ★ v4!!
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          force_orphan: true
+          force_orphan: true                     # ★ 上書き push
+          cname: unbelong.xyz                    # 保険：毎回 CNAME 生成
