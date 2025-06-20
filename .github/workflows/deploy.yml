@@ -2,11 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]          # ← デフォルトブランチ名に合わせる
-
-concurrency:                    # ← 同時実行で競合しないように
-  group: pages-deploy
-  cancel-in-progress: true
+    branches: [main]     # ビルドをトリガーするブランチ
 
 jobs:
   deploy:
@@ -15,24 +11,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.147.3'
           extended: true
 
-      - name: Build
+      - name: Build site
         run: hugo --minify
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4      # ← v4 安定版
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./public                 # ← Hugo の出力先
           publish_branch: gh-pages
-          force_orphan: true       # ← これだけで履歴を毎回置き換えられる
-          # keep_files: true       # ← もし一部ファイルを残したい場合だけ
+          force_orphan: true                    # ← “最新だけ” に上書き
