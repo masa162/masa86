@@ -2,36 +2,36 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]           # ← main へ push したらビルド
+    branches: [main]
+
+concurrency:               # ★ ここを追加
+  group: "deploy-pages"    # ジョブ名は任意
+  cancel-in-progress: true # 古い run を自動キャンセル
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) ソース & テーマ（サブモジュール）を取得
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive   # テーマを pull
-          fetch-depth: 0          # 履歴を全取得（任意）
+          submodules: recursive
+          fetch-depth: 0
 
-      # 2) Hugo をセットアップ
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.147.3'
           extended: true
 
-      # 3) ビルド
       - name: Build site
         run: hugo --minify
 
-      # 4) gh-pages ブランチへデプロイ
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public       # Hugo の出力先
+          publish_dir: ./public
           publish_branch: gh-pages
-          force_orphan: true          # 古い履歴をリセット
+          force_orphan: true
