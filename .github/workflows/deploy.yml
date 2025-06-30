@@ -2,17 +2,18 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main]  # ← mainブランチが更新されたら実行
 
-concurrency:              # ← 同時実行 1 本だけに制限
+concurrency:
   group: deploy-pages
   cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout source code
         uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -21,17 +22,18 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.147.3'
+          hugo-version: '0.147.3'   # ← 必要に応じてバージョン変更
           extended: true
 
       - name: Build site
         run: hugo --minify
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4      # ★ v4!!
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          force_orphan: true                     # ★ 上書き push
-          cname: unbelong.xyz                    # 保険：毎回 CNAME 生成
+          force_orphan: true          # ← 履歴なしでクリーンな gh-pages を生成
+          force: true                 # ← ブロックされていても強制 push
+          cname: unbelong.xyz         # ← 独自ドメイン（CNAME ファイル自動生成）
