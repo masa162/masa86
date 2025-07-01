@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]  # mainブランチが更新されたら実行
+    branches: [main]  # ← mainブランチが更新されたら実行
 
 concurrency:
   group: deploy-pages
@@ -22,7 +22,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.147.3'
+          hugo-version: '0.147.3'   # ← 必要に応じてバージョン変更
           extended: true
 
       - name: Build site
@@ -34,5 +34,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          force_orphan: true
-          cname: unbelong.xyz
+          cname: unbelong.xyz         # ← 独自ドメイン（CNAME ファイル自動生成）
