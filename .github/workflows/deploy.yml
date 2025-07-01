@@ -1,37 +1,29 @@
-name: Deploy to GitHub Pages
+name: deploy
 
 on:
   push:
-    branches: [main]  # ← mainブランチが更新されたら実行
-
-concurrency:
-  group: deploy-pages
-  cancel-in-progress: true
+    branches:
+      - main  # ← デフォルトブランチ名が違う場合は合わせてください
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout source code
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.147.3'   # ← 必要に応じてバージョン変更
+          hugo-version: 'latest'
           extended: true
 
-      - name: Build site
+      - name: Build
         run: hugo --minify
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # ✅ これが必要！
           publish_dir: ./public
-          publish_branch: gh-pages
           cname: unbelong.xyz         # ← 独自ドメイン (CNAME ファイル自動生成)
