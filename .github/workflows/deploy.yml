@@ -1,12 +1,14 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy to GitHub Pages (Artifact)
 
 on:
   push:
     branches: [main]
 
-# gh-pages ブランチに push するために必要な権限
+# 標準 GitHub Pages デプロイ方式（artifact 経由）に必要な権限
 permissions:
-  contents: write
+  contents: read          # ソース取得のみ
+  pages: write            # Pages へのデプロイ
+  id-token: write         # OIDC for deploy‑pages v4
 
 concurrency:
   group: deploy-pages
@@ -17,14 +19,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code (with submodules)
+      - name: Checkout source (with submodules)
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
 
-      # 既に recursive で取得するが、テーマが取り切れないケースの保険として明示
-      - name: Update submodules
+      - name: Ensure submodules are initialized
         run: git submodule update --init --recursive
 
       - name: Setup Hugo
@@ -36,10 +37,13 @@ jobs:
       - name: Build site
         run: hugo --minify
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      # ── Pages 用 Artifact に public/ をアップロード ──
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
-          cname: unbelong.xyz
+          path: ./public
+
+      # ── Artifact を GitHub Pages にデプロイ ──
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
