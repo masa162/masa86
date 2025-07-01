@@ -2,7 +2,11 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]  # ← mainブランチが更新されたら実行
+    branches: [main]
+
+# gh-pages ブランチに push するために必要な権限
+permissions:
+  contents: write
 
 concurrency:
   group: deploy-pages
@@ -13,16 +17,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
+      - name: Checkout source code (with submodules)
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
 
+      # 既に recursive で取得するが、テーマが取り切れないケースの保険として明示
+      - name: Update submodules
+        run: git submodule update --init --recursive
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.147.3'   # ← 必要に応じてバージョン変更
+          hugo-version: '0.147.3'
           extended: true
 
       - name: Build site
@@ -34,4 +42,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
-          cname: unbelong.xyz         # ← 独自ドメイン (CNAME ファイル自動生成)
+          cname: unbelong.xyz
