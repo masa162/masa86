@@ -51,3 +51,17 @@
     margin-left:.75rem;
   }
 }
+
+/* 一覧ページの cover image サイズを調整 */
+.post-entry .entry-cover img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* 必要なら高さ制限も */
+.post-entry .entry-cover {
+  max-height: 300px; /* 例：300pxに制限 */
+  overflow: hidden;
+}
