@@ -18,7 +18,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment:
-      name: github-pages          # ← 必須固定名
+      name: github-pages        # Pages 環境は固定名
       url:  ${{ steps.deployment.outputs.page_url }}
 
     steps:
@@ -42,7 +42,7 @@ jobs:
 
       # ── Pages 用 Artifact に public/ をアップロード ──
       - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
