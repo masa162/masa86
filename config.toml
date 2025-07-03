@@ -1,15 +1,10 @@
-baseURL = "https://unbelong.xyz/"
+baseURL = "https://masa162.github.io/masa86/"
 languageCode = "ja"
-title = "unbelong"
-theme = "PaperMod"
+title = "masa86"
+
 
 [params]
-ShowCodeCopyButtons = true
-ShowToc = false
-profileMode = { enabled = false }
-mainSections = ["posts"]
 description = "記録と感覚の交差点、unbelongの雑記ブログ。"
-
 
 [permalinks]
 posts = "/posts/:slug/"

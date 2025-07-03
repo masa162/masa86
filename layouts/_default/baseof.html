@@ -1,45 +1,24 @@
-{{- /* =========  Hugo version check  ========= */ -}}
-{{- if lt hugo.Version "0.146.0" }}
-  {{- errorf "=> hugo v0.146.0 or greater is required for hugo-PaperMod to build " }}
-{{- end -}}
-
 <!DOCTYPE html>
-<html lang="{{ site.Language }}" dir="{{ .Language.LanguageDirection | default "auto" }}">
+<html lang="ja">
 <head>
-  {{- partial "head.html" . }}
+  <meta charset="UTF-8">
+  <title>{{ .Title }}</title>
+ {{ partial "head.html" . }}
 
-  {{/* ----------  OGP / Twitter Card  ---------- */}}
-{{- $cover := "" -}}
-{{- with .Params.cover.image -}}
-  {{- with $.Resources.Get . -}}
-    {{- $cover = (.Fit "1200x630").Permalink -}}
-  {{- end -}}
-{{- end -}}
-
-  {{- if $cover }}
-    <meta property="og:image"        content="{{ $cover }}">
-    <meta property="og:image:width"  content="1200">
-    <meta property="og:image:height" content="630">
-    <meta name="twitter:card"        content="summary_large_image">
-    <meta name="twitter:image"       content="{{ $cover }}">
-  {{- end }}
 </head>
+<body>
+  {{ partial "header.html" . }}
 
-<body
-  class="
-    {{- if (or (ne .Kind `page`) (eq .Layout `archives`) (eq .Layout `search`)) }}list{{- end }}
-    {{- if eq site.Params.defaultTheme `dark` }} dark{{- end -}}
-  "
-  id="top"
->
-  {{- partialCached "header.html" . .Page -}}
-
-  <main class="main">
-    {{- block "main" . }}{{ end }}
+<div class="max-w-6xl mx-auto px-4 py-6 flex flex-row gap-8">
+  <main class="w-2/3 prose max-w-none">
+    {{ block "main" . }}{{ end }}
   </main>
 
-  {{- partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
-  {{- partial "scripts.html" . }}
-  <script src="/js/toggle.js" defer></script>
+  <aside class="w-1/3 space-y-8 text-sm pt-2 pl-2 border-l">
+    {{ partial "sidebar.html" . }}
+  </aside>
+</div>
+
+  {{ partial "footer.html" . }}
 </body>
 </html>

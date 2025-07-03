@@ -1,0 +1,11 @@
+{{ define "main" }}
+{{ range .Site.RegularPages }}
+  <article class="mb-6 border-b pb-4">
+    <h2 class="text-lg font-bold">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </h2>
+    <p class="text-sm text-gray-500">{{ .Date.Format "2006-01-02" }}</p>
+    <p class="text-sm mt-1">{{ .Summary }}</p>
+  </article>
+{{ end }}
+{{ end }}

@@ -1,23 +1,7 @@
 {{ define "main" }}
-  <article class="prose mx-auto">
-    {{/* ---------- Cover / Hero ---------- */}}
-    {{ with .Params.cover.image }}
-      {{ with $.Resources.Get . }}
-        {{/* 幅 1600 × 高さ 900 にリサイズ */}}
-        {{ $hero := .Fit "1600x900" }}
-        <figure class="mb-6">
-          <img src="{{ $hero.RelPermalink }}"
-               alt="{{ $.Params.cover.alt | default $.Title }}"
-               class="rounded-xl shadow-lg w-full"
-               loading="lazy">
-          {{ with $.Params.cover.caption }}
-            <figcaption class="text-sm text-gray-500">{{ . }}</figcaption>
-          {{ end }}
-        </figure>
-      {{ end }}
-    {{ end }}
-
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
-  </article>
+<article class="prose max-w-none">
+  <h1>{{ .Title }}</h1>
+  <p class="text-sm text-gray-500">{{ .Date.Format "2006-01-02" }}</p>
+  {{ .Content }}
+</article>
 {{ end }}

@@ -1,0 +1,12 @@
+<div>
+  <h3 class="text-base font-semibold mb-2">アーカイブ</h3>
+  <ul>
+    {{ $groups := .Site.RegularPages.GroupByDate "2006-01" }}
+    {{ if eq (len $groups) 0 }}
+      <li>📭 アーカイブなし</li>
+    {{ end }}
+    {{ range $group := $groups }}
+      <li>{{ $group.Key }} ({{ len $group.Pages }})</li>
+    {{ end }}
+  </ul>
+</div>
