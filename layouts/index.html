@@ -1,0 +1,13 @@
+{{ define "main" }}
+<section class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+  {{ range .Site.RegularPages }}
+    <article class="border border-gray-200 rounded-md p-5 hover:bg-gray-50 transition">
+      <h2 class="text-xl font-semibold mb-1">
+        <a href="{{ .RelPermalink }}" class="hover:underline">{{ .Title }}</a>
+      </h2>
+      <p class="text-sm text-gray-500 mb-2">{{ .Date.Format "2006-01-02" }}</p>
+      <p class="text-base text-gray-800">{{ .Summary }}</p>
+    </article>
+  {{ end }}
+</section>
+{{ end }}

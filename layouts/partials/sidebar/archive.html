@@ -1,12 +1,27 @@
-<div>
-  <h3 class="text-base font-semibold mb-2">アーカイブ</h3>
-  <ul>
-    {{ $groups := .Site.RegularPages.GroupByDate "2006-01" }}
-    {{ if eq (len $groups) 0 }}
-      <li>📭 アーカイブなし</li>
-    {{ end }}
-    {{ range $group := $groups }}
-      <li>{{ $group.Key }} ({{ len $group.Pages }})</li>
-    {{ end }}
-  </ul>
-</div>
+<ul class="list-none pl-0 text-sm space-y-1">
+  {{ $years := .Site.RegularPages.GroupByDate "2006" }}
+  {{ range $year := $years }}
+    <li>
+      <details>
+        <summary class="cursor-pointer font-semibold">{{ $year.Key }}年</summary>
+        <ul class="ml-4 list-none">
+          {{ $months := $year.Pages.GroupByDate "01" }}
+          {{ range $month := $months }}
+            <li>
+              <details>
+                <summary class="cursor-pointer">{{ $month.Key }}月</summary>
+                <ul class="ml-4 list-disc">
+                  {{ range $month.Pages }}
+                    <li>
+                      <a href="{{ .RelPermalink }}">{{ .Date.Format "02日 — " }}{{ .Title }}</a>
+                    </li>
+                  {{ end }}
+                </ul>
+              </details>
+            </li>
+          {{ end }}
+        </ul>
+      </details>
+    </li>
+  {{ end }}
+</ul>
