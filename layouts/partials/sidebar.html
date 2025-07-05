@@ -1,18 +1,51 @@
-<aside class="space-y-8 text-sm pt-2 pl-2">
- <img src="{{ "images/profile/portrait_squ_risize50.jpg" | relURL }}" />
-  <div class="text-gray-500">
-中山正之<br>
-Masayuki Nakayama<br>
-1986年　神奈川県出身<br>
-薬剤師<br>
-webデザイナー<br>
-イラストレーター<br>
-belong2jazz@gmail.com<br>
-youtube<br>
-<a href="https://www.flickr.com/photos/97004616@N04/" class="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">portfolio flicker</a>
+<!-- プロフィール -->
+<div class="blog-sidebar-section">
+  <h3 class="blog-sidebar-title">プロフィール</h3>
+  <div class="text-center mb-4">
+    <img src="{{ "images/profile/portrait_squ_risize50.jpg" | relURL }}" class="w-16 h-16 rounded-full mx-auto mb-2 shadow-md" alt="プロフィール写真" />
+    <h4 class="font-medium text-gray-800">中山正之</h4>
+    <p class="text-xs text-gray-500">Masayuki Nakayama</p>
+  </div>
+  <div class="text-sm text-blog-text space-y-1">
+    <p>1986年　神奈川県出身</p>
+    <p>薬剤師 / webデザイナー / イラストレーター</p>
+    <div class="mt-3 pt-3 border-t border-blog-border">
+      <p class="text-xs">belong2jazz@gmail.com</p>
+      <a href="https://www.flickr.com/photos/97004616@N04/" class="text-xs" target="_blank" rel="noopener noreferrer">portfolio flicker</a>
+    </div>
+  </div>
 </div>
 
-  {{ partial "sidebar/search.html" . }}
-  {{ partial "sidebar/archive.html" . }}
-  {{ partial "sidebar/tags.html" . }}
-</aside>
+<!-- 最近の投稿 -->
+<div class="blog-sidebar-section">
+  <h3 class="blog-sidebar-title">最近の投稿</h3>
+  <ul class="space-y-2">
+    {{ range first 5 .Site.RegularPages }}
+    <li>
+      <a href="{{ .RelPermalink }}" class="text-sm text-blog-text hover:underline block">
+        {{ .Title }}
+      </a>
+      <span class="text-xs text-gray-500">{{ .Date.Format "2006年01月02日" }}</span>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+
+<!-- カテゴリー一覧 -->
+<div class="blog-sidebar-section">
+  <h3 class="blog-sidebar-title">カテゴリー</h3>
+  <ul class="space-y-1">
+    {{ range .Site.Taxonomies.categories }}
+    <li>
+      <a href="{{ .Page.RelPermalink }}" class="text-sm text-blog-text hover:underline flex justify-between">
+        <span>{{ .Page.Title }}</span>
+        <span class="text-xs text-gray-500">({{ .Count }})</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</div>
+
+{{ partial "sidebar/search.html" . }}
+{{ partial "sidebar/archive.html" . }}
+{{ partial "sidebar/tags.html" . }}

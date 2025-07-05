@@ -1,7 +1,58 @@
 {{ define "main" }}
-<article class="prose prose-neutral prose-lg max-w-none">
-  <h1 class=" text-3xl text-gray-500 font-semibold pb-2 ">{{ .Title }}</h1>
-  <p class="text-sm text-gray-500 mb-6">{{ .Date.Format "2006-01-02" }}</p>
-  {{ .Content }}
+<article class="blog-card p-8 max-w-none">
+  <!-- 記事ヘッダー -->
+  <header class="mb-8 pb-4 border-b border-blog-border">
+    <h1 class="text-h1 mb-4 leading-tight">{{ .Title }}</h1>
+    <div class="flex items-center text-sm text-gray-500 space-x-4">
+      <time datetime="{{ .Date.Format "2006-01-02" }}" class="font-medium">
+        {{ .Date.Format "2006年01月02日" }}
+      </time>
+      {{ if .Params.categories }}
+        <span class="text-gray-300">|</span>
+        <div class="flex space-x-2">
+          {{ range .Params.categories }}
+            <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">
+              {{ . }}
+            </span>
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </header>
+
+  <!-- 記事コンテンツ -->
+  <div class="prose prose-neutral prose-lg max-w-none text-blog-text leading-body">
+    {{ .Content }}
+  </div>
 </article>
+
+<!-- 前後記事ナビゲーション -->
+<nav class="mt-8">
+  <div class="blog-card p-6">
+    <h3 class="text-lg font-semibold mb-4 text-blog-text">関連記事</h3>
+    <div class="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+      {{ with .PrevInSection }}
+        <div class="flex-1">
+          <p class="text-xs text-gray-500 mb-1">前の記事</p>
+          <a href="{{ .RelPermalink }}" class="text-blog-link hover:text-blog-link-hover font-medium block">
+            {{ .Title }}
+          </a>
+        </div>
+      {{ else }}
+        <div class="flex-1"></div>
+      {{ end }}
+      
+      {{ with .NextInSection }}
+        <div class="flex-1 text-right">
+          <p class="text-xs text-gray-500 mb-1">次の記事</p>
+          <a href="{{ .RelPermalink }}" class="text-blog-link hover:text-blog-link-hover font-medium block">
+            {{ .Title }}
+          </a>
+        </div>
+      {{ else }}
+        <div class="flex-1"></div>
+      {{ end }}
+    </div>
+  </div>
+</nav>
 {{ end }}

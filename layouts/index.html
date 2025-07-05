@@ -1,12 +1,17 @@
 {{ define "main" }}
-<section class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+<section class="space-y-6">
   {{ range .Site.RegularPages }}
-    <article class="border border-gray-200 rounded-md p-5 hover:bg-gray-50 transition">
-      <h2 class="text-xl font-semibold mb-1">
+    <article class="blog-card p-6 hover-lift">
+      <h2 class="text-h2 mb-2">
         <a href="{{ .RelPermalink }}" class="hover:underline">{{ .Title }}</a>
       </h2>
-      <p class="text-sm text-gray-500 mb-2">{{ .Date.Format "2006-01-02" }}</p>
-      <p class="text-base text-gray-800">{{ .Summary }}</p>
+      <p class="text-sm text-gray-500 mb-3 font-medium">{{ .Date.Format "2006年01月02日" }}</p>
+      <div class="text-blog-text leading-body">
+        {{ .Summary }}
+      </div>
+      <div class="mt-4 pt-3 border-t border-blog-border">
+        <a href="{{ .RelPermalink }}" class="text-blog-link hover:text-blog-link-hover text-sm font-medium">続きを読む »</a>
+      </div>
     </article>
   {{ end }}
 </section>

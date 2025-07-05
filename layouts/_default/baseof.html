@@ -10,14 +10,16 @@
   {{ partial "header.html" . }}
 
   <!-- layouts/_default/baseof.html -->
-  <div class="max-w-6xl mx-auto px-4 py-6 flex flex-row gap-8">
-    <main class="w-2/3 prose max-w-none">
-      {{ block "main" . }}{{ end }}
-    </main>
+  <div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <main class="flex-1 lg:w-7/10 prose max-w-none">
+        {{ block "main" . }}{{ end }}
+      </main>
 
-    <aside class="w-1/3 space-y-8 text-sm pt-2 pl-2">
-      {{ partial "sidebar.html" . }}
-    </aside>
+      <aside class="lg:w-3/10 space-y-8 text-sm">
+        {{ partial "sidebar.html" . }}
+      </aside>
+    </div>
   </div>
 
   {{ partial "footer.html" . }}

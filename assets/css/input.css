@@ -1,3 +1,127 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans bg-blog-bg text-blog-text leading-body;
+  }
+  
+  h1 {
+    @apply text-h1 font-bold text-blog-text;
+  }
+  
+  h2 {
+    @apply text-h2 font-semibold text-blog-text;
+  }
+  
+  h3 {
+    @apply text-h3 font-medium text-blog-text;
+  }
+  
+  a {
+    @apply text-blog-link hover:text-blog-link-hover;
+  }
+}
+
+@layer components {
+  .blog-card {
+    @apply bg-blog-card border border-blog-border rounded-lg shadow-sm hover:shadow-md transition-shadow;
+  }
+  
+  .blog-sidebar-section {
+    @apply bg-blog-card border border-blog-border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow;
+  }
+  
+  .blog-sidebar-title {
+    @apply text-lg font-semibold text-blog-text border-b border-blog-border pb-2 mb-3;
+  }
+  
+  /* 記事内画像スタイル */
+  .prose img {
+    @apply rounded-lg shadow-sm max-w-full h-auto mx-auto my-6;
+  }
+  
+  /* ブロッククォートスタイル */
+  .prose blockquote {
+    @apply border-l-4 border-blog-link bg-gray-50 italic pl-4 py-2 my-4;
+  }
+  
+  /* コードブロックスタイル */
+  .prose pre {
+    @apply bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-4;
+  }
+  
+  .prose code {
+    @apply bg-gray-100 text-gray-800 px-1 py-0.5 rounded text-sm;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent text-gray-100 p-0;
+  }
+  
+  /* リンクスタイル */
+  .prose a {
+    @apply text-blog-link hover:text-blog-link-hover no-underline hover:underline transition-colors;
+  }
+  
+  /* リストスタイル */
+  .prose ul {
+    @apply list-disc pl-6 space-y-1;
+  }
+  
+  .prose ol {
+    @apply list-decimal pl-6 space-y-1;
+  }
+  
+  /* テーブルスタイル */
+  .prose table {
+    @apply w-full border-collapse border border-blog-border my-4;
+  }
+  
+  .prose th,
+  .prose td {
+    @apply border border-blog-border px-3 py-2;
+  }
+  
+  .prose th {
+    @apply bg-gray-50 font-semibold;
+  }
+  
+  /* モバイル対応 */
+  @media (max-width: 1023px) {
+    .blog-card {
+      @apply mx-2 rounded-md;
+    }
+    
+    .blog-sidebar-section {
+      @apply mx-2 rounded-md;
+    }
+    
+    .prose {
+      @apply text-sm;
+    }
+    
+    .prose h1 {
+      @apply text-2xl;
+    }
+    
+    .prose h2 {
+      @apply text-xl;
+    }
+    
+    .prose h3 {
+      @apply text-lg;
+    }
+  }
+  
+  /* ホバー効果の強化 */
+  .hover-lift {
+    @apply transition-all duration-200 hover:translate-y-[-2px] hover:shadow-lg;
+  }
+  
+  /* グラデーションアクセント */
+  .gradient-accent {
+    @apply bg-gradient-to-r from-blog-link to-blog-link-hover;
+  }
+}
