@@ -1,16 +1,13 @@
 {{ define "main" }}
-<section class="space-y-6">
+<section class="posts-list">
   {{ range .Site.RegularPages }}
-    <article class="blog-card p-6 hover-lift">
-      <h2 class="text-h2 mb-2">
-        <a href="{{ .RelPermalink }}" class="hover:underline">{{ .Title }}</a>
+    <article class="post-item">
+      <h2 class="post-title">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
       </h2>
-      <p class="text-sm text-gray-500 mb-3 font-medium">{{ .Date.Format "2006年01月02日" }}</p>
-      <div class="text-blog-text leading-body">
+      <p class="post-date">{{ .Date.Format "2006年01月02日" }}</p>
+      <div class="post-content">
         {{ .Summary }}
-      </div>
-      <div class="mt-4 pt-3 border-t border-blog-border">
-        <a href="{{ .RelPermalink }}" class="text-blog-link hover:text-blog-link-hover text-sm font-medium">続きを読む »</a>
       </div>
     </article>
   {{ end }}

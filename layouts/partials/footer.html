@@ -1,23 +1,48 @@
-<footer class="mt-12 py-8 bg-white border-t border-blog-border">
-  <div class="max-w-7xl mx-auto px-4 text-center">
-    <p class="text-sm text-gray-600 mb-2">© {{ now.Year }} masa86 - unbelong</p>
-    <p class="text-xs text-gray-500">記録と感覚の交差点、雑記ブログ。</p>
-  </div>
+<footer>
+  <p>© {{ now.Year }} masa86 - unbelong</p>
+  <p>記録と感覚の交差点、雑記ブログ。</p>
+</footer>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const archiveSection = document.querySelector("aside");
-      if (!archiveSection) return;
-
-      const details = archiveSection.querySelectorAll("details");
-      if (details.length > 0) {
-        details[0].setAttribute("open", "true");
-
-        const subDetails = details[0].querySelectorAll("details");
-        if (subDetails.length > 0) {
-          subDetails[0].setAttribute("open", "true");
-        }
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 年度トグル機能
+  const yearToggles = document.querySelectorAll('.archive-year-toggle');
+  yearToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const targetElement = document.getElementById(targetId);
+      const arrow = this.querySelector('.toggle-arrow');
+      
+      if (targetElement.style.display === 'none') {
+        targetElement.style.display = 'block';
+        arrow.textContent = '▼';
+        arrow.className = 'toggle-arrow open';
+      } else {
+        targetElement.style.display = 'none';
+        arrow.textContent = '▽';
+        arrow.className = 'toggle-arrow closed';
       }
     });
-  </script>
-</footer>
+  });
+  
+  // 月トグル機能
+  const monthToggles = document.querySelectorAll('.archive-month-toggle');
+  monthToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const targetElement = document.getElementById(targetId);
+      const arrow = this.querySelector('.toggle-arrow');
+      
+      if (targetElement.style.display === 'none') {
+        targetElement.style.display = 'block';
+        arrow.textContent = '▼';
+        arrow.className = 'toggle-arrow open';
+      } else {
+        targetElement.style.display = 'none';
+        arrow.textContent = '▽';
+        arrow.className = 'toggle-arrow closed';
+      }
+    });
+  });
+});
+</script>

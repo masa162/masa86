@@ -7,17 +7,21 @@
 
 </head>
 <body>
-  {{ partial "header.html" . }}
-
-  <!-- layouts/_default/baseof.html -->
-  <div class="max-w-7xl mx-auto px-4 py-6">
-    <div class="flex flex-col lg:flex-row gap-8">
-      <main class="flex-1 lg:w-7/10 prose max-w-none">
+  <!-- Simple Simply Simple design: 2-column layout -->
+  <div class="main-container">
+    <header class="site-header">
+      <h1 class="site-title">
+        <a href="/">中山雑記</a>
+      </h1>
+    </header>
+    
+    <div class="content-wrapper">
+      <main class="main-content">
         {{ block "main" . }}{{ end }}
       </main>
-
-      <aside class="lg:w-3/10 space-y-8 text-sm">
-        {{ partial "sidebar.html" . }}
+      
+      <aside class="sidebar">
+        {{ partial "sidebar-new.html" . }}
       </aside>
     </div>
   </div>
