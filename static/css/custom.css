@@ -257,6 +257,16 @@ body {
   line-height: 1.4;
   display: block;
   padding: 2px 0;
+  position: relative;
+  padding-left: 12px;
+}
+
+.archive-post a:before {
+  content: "・";
+  position: absolute;
+  left: 0;
+  color: #666666;
+  font-weight: bold;
 }
 
 .archive-post a:hover {
@@ -610,6 +620,7 @@ th {
   
   .archive-post a {
     padding: 8px 4px;
+    padding-left: 16px;
     font-size: 14px;
     line-height: 1.5;
   }
