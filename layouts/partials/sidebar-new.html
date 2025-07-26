@@ -23,12 +23,19 @@
 <div class="sidebar-section">
   <h3 class="sidebar-title">アーカイブ</h3>
   <div class="sidebar-content">
+    <!-- アーカイブナビゲーション -->
+    <div class="archive-nav">
+      <nav class="archive-breadcrumb">
+        <span class="breadcrumb-item active">すべて</span>
+      </nav>
+    </div>
+    
     <div class="archive-hierarchical">
       {{ $years := .Site.RegularPages.GroupByDate "2006" }}
       {{ range $yearIndex, $year := $years }}
         {{ $isLatestYear := eq $yearIndex 0 }}
         <div class="archive-year">
-          <div class="archive-year-toggle" data-target="year-{{ $year.Key }}">
+          <div class="archive-year-toggle" data-target="year-{{ $year.Key }}" data-year="{{ $year.Key }}">
             <span class="toggle-arrow {{ if $isLatestYear }}open{{ else }}closed{{ end }}">{{ if $isLatestYear }}▼{{ else }}▽{{ end }}</span>
             <span class="archive-year-label">{{ $year.Key }} ({{ len $year.Pages }})</span>
           </div>
@@ -37,7 +44,7 @@
             {{ range $monthIndex, $month := $months }}
               {{ $isLatestMonth := and $isLatestYear (eq $monthIndex 0) }}
               <div class="archive-month">
-                <div class="archive-month-toggle" data-target="month-{{ $year.Key }}-{{ $month.Key }}">
+                <div class="archive-month-toggle" data-target="month-{{ $year.Key }}-{{ $month.Key }}" data-year="{{ $year.Key }}" data-month="{{ $month.Key }}">
                   <span class="toggle-arrow {{ if $isLatestMonth }}open{{ else }}closed{{ end }}">{{ if $isLatestMonth }}▼{{ else }}▽{{ end }}</span>
                   <span class="archive-month-label">{{ $month.Key }}月 ({{ len $month.Pages }})</span>
                 </div>

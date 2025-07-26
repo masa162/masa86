@@ -1,13 +1,18 @@
 {{ define "main" }}
-<section class="posts-list">
+<section class="posts-grid">
   {{ range .Site.RegularPages }}
-    <article class="post-item">
-      <h2 class="post-title">
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      </h2>
-      <p class="post-date">{{ .Date.Format "2006年01月02日" }}</p>
-      <div class="post-content">
-        {{ .Summary }}
+    <article class="post-card">
+      <div class="post-card-header">
+        <h2 class="post-card-title">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        <p class="post-card-date">{{ .Date.Format "2006年01月02日" }}</p>
+      </div>
+      <div class="post-card-content">
+        <p class="post-card-summary">{{ .Summary | truncate 120 }}</p>
+      </div>
+      <div class="post-card-footer">
+        <a href="{{ .RelPermalink }}" class="read-more-link">続きを読む →</a>
       </div>
     </article>
   {{ end }}

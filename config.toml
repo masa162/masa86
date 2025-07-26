@@ -2,6 +2,8 @@ baseURL = "https://masa86.com/"
 languageCode = "ja"
 title = "中山雑記"
 
+[outputs]
+home = ["HTML", "RSS", "JSON"]
 
 [params]
 description = "記録と感覚の交差点、unbelongの雑記ブログ。"
