@@ -1,4 +1,43 @@
 {{ define "main" }}
+{{ if .IsHome }}
+<section class="posts-grid">
+  {{ range first 5 .Site.RegularPages }}
+    <article class="post-card">
+      <!-- アイキャッチ画像（設定されている場合のみ表示） -->
+      {{ if .Params.featured_image }}
+      <div class="post-card-image">
+        <img src="{{ .Params.featured_image | relURL }}" alt="{{ .Title }}" loading="lazy">
+      </div>
+      {{ end }}
+      
+      <div class="post-card-header">
+        <h2 class="post-card-title">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        <p class="post-card-date">{{ .Date.Format "2006年01月02日" }}</p>
+      </div>
+      
+      <div class="post-card-content">
+        <!-- 本文の冒頭部分のみ表示 -->
+        <p class="post-card-summary">{{ .Summary | truncate 150 }}</p>
+      </div>
+      
+      <!-- タグ表示 -->
+      {{ if .Params.tags }}
+      <div class="post-card-tags">
+        {{ range first 3 .Params.tags }}
+          <span class="post-card-tag">#{{ . }}</span>
+        {{ end }}
+      </div>
+      {{ end }}
+      
+      <div class="post-card-footer">
+        <a href="{{ .RelPermalink }}" class="read-more-link">続きを読む →</a>
+      </div>
+    </article>
+  {{ end }}
+</section>
+{{ else }}
 <section class="posts-list">
   {{ range .Site.RegularPages }}
     <article class="post-item">
@@ -12,4 +51,5 @@
     </article>
   {{ end }}
 </section>
+{{ end }}
 {{ end }}

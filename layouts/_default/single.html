@@ -10,6 +10,16 @@
   <div class="post-content-single">
     {{ .Content }}
   </div>
+  
+  <!-- タグ表示 -->
+  {{ if .Params.tags }}
+  <div class="post-tags">
+    <h3>タグ</h3>
+    {{ range .Params.tags }}
+      <a href="{{ "/tags/" | relURL }}{{ . | urlize }}" class="tag-link">#{{ . }}</a>
+    {{ end }}
+  </div>
+  {{ end }}
 </article>
 
 <!-- 前後記事ナビゲーション -->

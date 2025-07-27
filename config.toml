@@ -5,11 +5,16 @@ title = "中山雑記"
 [outputs]
 home = ["HTML", "RSS", "JSON"]
 
+[taxonomies]
+tag = "tags"
+category = "categories"
+
 [params]
 description = "記録と感覚の交差点、unbelongの雑記ブログ。"
 
 [permalinks]
 posts = "/posts/:slug/"
+tags = "/tags/:slug/"
 
 [frontmatter]
 slug = "filename"

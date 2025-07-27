@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="taxonomy-terms">
+  <h1 class="page-title">タグ一覧</h1>
+  
+  <div class="tags-cloud">
+    {{ range .Data.Terms.Alphabetical }}
+      <a href="{{ .Page.RelPermalink }}" class="tag-cloud-item">
+        <span class="tag-name">{{ .Page.Title }}</span>
+        <span class="tag-count">({{ .Count }})</span>
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="taxonomy-page">
+  <h1 class="taxonomy-title">タグ: {{ .Title }}</h1>
+  <p class="taxonomy-count">{{ .Data.Pages | len }}件の記事</p>
+  
+  <section class="posts-list">
+    {{ range .Data.Pages }}
+      <article class="post-item">
+        <h2 class="post-title">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        <p class="post-date">{{ .Date.Format "2006年01月02日" }}</p>
+        <div class="post-content">
+          {{ .Summary }}
+        </div>
+        {{ if .Params.tags }}
+        <div class="post-tags">
+          {{ range .Params.tags }}
+            <a href="{{ "/tags/" | relURL }}{{ . | urlize }}" class="tag-link">#{{ . }}</a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </article>
+    {{ end }}
+  </section>
+</div>
+{{ end }}
