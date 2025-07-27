@@ -4,44 +4,47 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 年度トグル機能
-  const yearToggles = document.querySelectorAll('.archive-year-toggle');
-  yearToggles.forEach(toggle => {
-    toggle.addEventListener('click', function() {
-      const targetId = this.getAttribute('data-target');
+  // イベント委譲を使用してアーカイブトグル機能を実装
+  document.addEventListener('click', function(e) {
+    // 年度トグル
+    if (e.target.closest('.archive-year-toggle')) {
+      const toggle = e.target.closest('.archive-year-toggle');
+      const targetId = toggle.getAttribute('data-target');
       const targetElement = document.getElementById(targetId);
-      const arrow = this.querySelector('.toggle-arrow');
+      const arrow = toggle.querySelector('.toggle-arrow');
       
-      if (targetElement.style.display === 'none') {
-        targetElement.style.display = 'block';
-        arrow.textContent = '▼';
-        arrow.className = 'toggle-arrow open';
-      } else {
-        targetElement.style.display = 'none';
-        arrow.textContent = '▽';
-        arrow.className = 'toggle-arrow closed';
+      if (targetElement && arrow) {
+        if (targetElement.style.display === 'none') {
+          targetElement.style.display = 'block';
+          arrow.textContent = '▼';
+          arrow.className = 'toggle-arrow open';
+        } else {
+          targetElement.style.display = 'none';
+          arrow.textContent = '▽';
+          arrow.className = 'toggle-arrow closed';
+        }
       }
-    });
-  });
-  
-  // 月トグル機能
-  const monthToggles = document.querySelectorAll('.archive-month-toggle');
-  monthToggles.forEach(toggle => {
-    toggle.addEventListener('click', function() {
-      const targetId = this.getAttribute('data-target');
+    }
+    
+    // 月トグル
+    if (e.target.closest('.archive-month-toggle')) {
+      const toggle = e.target.closest('.archive-month-toggle');
+      const targetId = toggle.getAttribute('data-target');
       const targetElement = document.getElementById(targetId);
-      const arrow = this.querySelector('.toggle-arrow');
+      const arrow = toggle.querySelector('.toggle-arrow');
       
-      if (targetElement.style.display === 'none') {
-        targetElement.style.display = 'block';
-        arrow.textContent = '▼';
-        arrow.className = 'toggle-arrow open';
-      } else {
-        targetElement.style.display = 'none';
-        arrow.textContent = '▽';
-        arrow.className = 'toggle-arrow closed';
+      if (targetElement && arrow) {
+        if (targetElement.style.display === 'none') {
+          targetElement.style.display = 'block';
+          arrow.textContent = '▼';
+          arrow.className = 'toggle-arrow open';
+        } else {
+          targetElement.style.display = 'none';
+          arrow.textContent = '▽';
+          arrow.className = 'toggle-arrow closed';
+        }
       }
-    });
+    }
   });
 
   // ハンバーガーメニュー機能

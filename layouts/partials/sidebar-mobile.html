@@ -1,0 +1,74 @@
+<!-- プロフィール -->
+<div class="sidebar-section">
+  <h3 class="sidebar-title">プロフィール</h3>
+  <div class="sidebar-content">
+    <p>1986年　神奈川県出身</p>
+    <p>薬剤師 / webデザイナー / イラストレーター</p>
+    <p>記録と感覚の交差点、unbelongの雑記ブログ。</p>
+  </div>
+</div>
+
+<!-- 検索BOX -->
+<div class="sidebar-section">
+  <h3 class="sidebar-title">検索</h3>
+  <div class="sidebar-content">
+    <form class="search-form" method="get" action="/search/">
+      <input type="search" name="q" placeholder="検索..." class="search-input">
+      <button type="submit" class="search-button">検索</button>
+    </form>
+  </div>
+</div>
+
+<!-- 投稿日一覧（アーカイブ） -->
+<div class="sidebar-section">
+  <h3 class="sidebar-title">アーカイブ</h3>
+  <div class="sidebar-content">
+    <div class="archive-hierarchical">
+      {{ $years := .Site.RegularPages.GroupByDate "2006" }}
+      {{ range $yearIndex, $year := $years }}
+        {{ if ne $year.Key "0001" }}
+        {{ $isLatestYear := eq $yearIndex 0 }}
+        <div class="archive-year">
+          <div class="archive-year-toggle" data-target="mobile-year-{{ $year.Key }}" data-year="{{ $year.Key }}">
+            <span class="toggle-arrow {{ if $isLatestYear }}open{{ else }}closed{{ end }}">{{ if $isLatestYear }}▼{{ else }}▽{{ end }}</span>
+            <span class="archive-year-label">{{ $year.Key }} ({{ len $year.Pages }})</span>
+          </div>
+          <div class="archive-months" id="mobile-year-{{ $year.Key }}" {{ if not $isLatestYear }}style="display: none;"{{ end }}>
+            {{ $months := $year.Pages.GroupByDate "01" }}
+            {{ range $monthIndex, $month := $months }}
+              {{ $isLatestMonth := and $isLatestYear (eq $monthIndex 0) }}
+              <div class="archive-month">
+                <div class="archive-month-toggle" data-target="mobile-month-{{ $year.Key }}-{{ $month.Key }}" data-year="{{ $year.Key }}" data-month="{{ $month.Key }}">
+                  <span class="toggle-arrow {{ if $isLatestMonth }}open{{ else }}closed{{ end }}">{{ if $isLatestMonth }}▼{{ else }}▽{{ end }}</span>
+                  <span class="archive-month-label">{{ $month.Key }}月 ({{ len $month.Pages }})</span>
+                </div>
+                <div class="archive-posts" id="mobile-month-{{ $year.Key }}-{{ $month.Key }}" {{ if not $isLatestMonth }}style="display: none;"{{ end }}>
+                  {{ range $month.Pages }}
+                  <div class="archive-post">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                  </div>
+                  {{ end }}
+                </div>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+<!-- タグ一覧 -->
+<div class="sidebar-section">
+  <h3 class="sidebar-title">タグ</h3>
+  <div class="sidebar-content">
+    <ul class="tag-list">
+      {{ range .Site.Taxonomies.tags }}
+      <li>
+        <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }} ({{ .Count }})</a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
