@@ -23,16 +23,19 @@
 <div class="sidebar-section">
   <h3 class="sidebar-title">アーカイブ</h3>
   <div class="sidebar-content">
-    <!-- アーカイブナビゲーション -->
+    <!-- アーカイブナビゲーション（非表示） -->
+    <!--
     <div class="archive-nav">
       <nav class="archive-breadcrumb">
         <span class="breadcrumb-item active">すべて</span>
       </nav>
     </div>
+    -->
     
     <div class="archive-hierarchical">
       {{ $years := .Site.RegularPages.GroupByDate "2006" }}
       {{ range $yearIndex, $year := $years }}
+        {{ if ne $year.Key "0001" }}
         {{ $isLatestYear := eq $yearIndex 0 }}
         <div class="archive-year">
           <div class="archive-year-toggle" data-target="year-{{ $year.Key }}" data-year="{{ $year.Key }}">
@@ -59,6 +62,7 @@
             {{ end }}
           </div>
         </div>
+        {{ end }}
       {{ end }}
     </div>
   </div>
