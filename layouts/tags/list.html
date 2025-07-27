@@ -3,23 +3,14 @@
   <h1 class="taxonomy-title">タグ: {{ .Title }}</h1>
   <p class="taxonomy-count">{{ .Data.Pages | len }}件の記事</p>
   
-  <section class="posts-list">
+  <section class="posts-compact-list">
     {{ range .Data.Pages }}
-      <article class="post-item">
-        <h2 class="post-title">
+      <article class="post-compact-item">
+        <h2 class="post-compact-title">
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </h2>
-        <p class="post-date">{{ .Date.Format "2006年01月02日" }}</p>
-        <div class="post-content">
-          {{ .Summary }}
-        </div>
-        {{ if .Params.tags }}
-        <div class="post-tags">
-          {{ range .Params.tags }}
-            <a href="{{ "/tags/" | relURL }}{{ . | urlize }}" class="tag-link">#{{ . }}</a>
-          {{ end }}
-        </div>
-        {{ end }}
+        <p class="post-compact-date">{{ .Date.Format "2006年01月02日" }}</p>
+        <p class="post-compact-summary">{{ .Summary | plainify | truncate 120 }}</p>
       </article>
     {{ end }}
   </section>

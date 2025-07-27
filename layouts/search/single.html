@@ -43,16 +43,17 @@ function displayResults(results, query) {
     return;
   }
 
-  let html = `<h2>${results.length}件の記事が見つかりました</h2>`;
+  let html = `<h2>${results.length}件の記事が見つかりました</h2><div class="posts-compact-list">`;
   results.forEach(page => {
     html += `
-      <article class="search-result-item">
-        <h3><a href="${page.permalink}">${page.title}</a></h3>
-        <p class="search-result-date">${page.date}</p>
-        <p class="search-result-summary">${page.summary}</p>
+      <article class="post-compact-item">
+        <h2 class="post-compact-title"><a href="${page.permalink}">${page.title}</a></h2>
+        <p class="post-compact-date">${page.date}</p>
+        <p class="post-compact-summary">${page.summary}</p>
       </article>
     `;
   });
+  html += '</div>';
   
   container.innerHTML = html;
 }
@@ -121,36 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 #search-button:hover {
   background-color: #004499;
-}
-
-.search-result-item {
-  margin: 20px 0;
-  padding: 15px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.search-result-item h3 {
-  margin: 0 0 5px 0;
-}
-
-.search-result-item h3 a {
-  color: #0066cc;
-  text-decoration: none;
-}
-
-.search-result-item h3 a:hover {
-  color: #004499;
-}
-
-.search-result-date {
-  color: #666;
-  font-size: 14px;
-  margin: 5px 0;
-}
-
-.search-result-summary {
-  color: #333;
-  line-height: 1.5;
 }
 </style>
 {{ end }}
