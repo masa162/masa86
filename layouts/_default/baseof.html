@@ -10,9 +10,17 @@
   <!-- Simple Simply Simple design: 2-column layout -->
   <div class="main-container">
     <header class="site-header">
-      <h1 class="site-title">
-        <a href="/">中山雑記</a>
-      </h1>
+      <div class="header-content">
+        <h1 class="site-title">
+          <a href="/">中山雑記</a>
+        </h1>
+        <!-- ハンバーガーメニューボタン（モバイルのみ表示） -->
+        <button class="hamburger-menu" id="hamburger-menu" aria-label="メニューを開く">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
     </header>
     
     <div class="content-wrapper">
@@ -23,6 +31,20 @@
       <aside class="sidebar">
         {{ partial "sidebar-new.html" . }}
       </aside>
+    </div>
+    
+    <!-- モバイル用ハンバーガーメニューオーバーレイ -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    
+    <!-- モバイル用サイドメニュー -->
+    <div class="mobile-sidebar" id="mobile-sidebar">
+      <div class="mobile-sidebar-header">
+        <h3>メニュー</h3>
+        <button class="mobile-menu-close" id="mobile-menu-close" aria-label="メニューを閉じる">×</button>
+      </div>
+      <div class="mobile-sidebar-content">
+        {{ partial "sidebar-new.html" . }}
+      </div>
     </div>
   </div>
 
